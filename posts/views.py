@@ -12,7 +12,7 @@ User = get_user_model()
 # Create your views here.
 
 class PostList(SelectRelatedMixin,generic.ListView):
-  models = models.Post
+  model = models.Post
   select_related = ('user','group')
 
 
@@ -54,7 +54,7 @@ class CreatePost(LoginRequiredMixin,SelectRelatedMixin,generic.CreateView):
     return super().form_valid(form)
 
 class DeletePost(LoginRequiredMixin,SelectRelatedMixin,generic.DeleteView):
-  model = models.Postselect_related = ('user','group')
+  model = models.Post
   select_related =('user','group')
   success_url = reverse_lazy('posts:all')
 

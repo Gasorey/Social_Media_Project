@@ -5,6 +5,8 @@ from django.views import generic
 from groups.models import Group, GroupMember
 from django.shortcuts import get_object_or_404
 from django.contrib import messages
+from django.db import IntegrityError
+from . import models
 
 # Create your views here.
 
@@ -46,7 +48,7 @@ class LeaveGroup(LoginRequiredMixin,generic.RedirectView):
   def get(self,request,*args,**kwargs):
 
     try:
-      membership = models.GroupMember.objects.flter(
+      membership = models.GroupMember.objects.filter(
         user=self.request.user, 
         group__slug=self.kwargs.get('slug')).get()
 
